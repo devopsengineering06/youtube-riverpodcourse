@@ -27,20 +27,23 @@ final currentDate = Provider<DateTime>(
   (ref) => DateTime.now(),
 );
 
-class HomePage extends ConsumerWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final date = ref.watch(currentDate);
-
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hooks Riverpod'),
       ),
-      body: Center(
-        child: Text(date.toIso8601String(),
-            style: Theme.of(context).textTheme.headlineMedium),
+      body: Consumer(
+        builder: (context, ref, child) {
+          final date = ref.watch(currentDate);
+          return Center(
+            child: Text(date.toIso8601String(),
+                style: Theme.of(context).textTheme.headlineMedium),
+          );
+        },
       ),
     );
   }

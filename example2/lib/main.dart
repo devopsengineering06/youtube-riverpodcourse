@@ -51,10 +51,10 @@ class App extends StatelessWidget {
   }
 }
 
-class HomePage extends ConsumerWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Consumer(
@@ -68,12 +68,16 @@ class HomePage extends ConsumerWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          TextButton(
-            // onPressed: () {
-            //   ref.read(counterProvider.notifier).increment();
-            // },
-            onPressed: ref.read(counterProvider.notifier).increment,
-            child: const Text('Increment count'),
+          Consumer(
+            builder: (context, ref, child) {
+              return TextButton(
+                // onPressed: () {
+                //   ref.read(counterProvider.notifier).increment();
+                // },
+                onPressed: ref.read(counterProvider.notifier).increment,
+                child: const Text('Increment count'),
+              );
+            },
           ),
         ],
       ),
